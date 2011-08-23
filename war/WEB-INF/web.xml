@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns="http://java.sun.com/xml/ns/javaee"
+xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+	<servlet>
+		<servlet-name>Around</servlet-name>
+		<servlet-class>gozolabs.com.AroundServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Around</servlet-name>
+		<url-pattern>/around</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>DoImageServlet</servlet-name>
+		<servlet-class>gozolabs.com.DoImageServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DoImageServlet</servlet-name>
+		<url-pattern>/doimage</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>CategoryServlet</servlet-name>
+		<servlet-class>gozolabs.com.CategoryServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CategoryServlet</servlet-name>
+		<url-pattern>/docategory</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AddressServlet</servlet-name>
+		<servlet-class>gozolabs.com.AddressServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddressServlet</servlet-name>
+		<url-pattern>/doaddress</url-pattern>
+	</servlet-mapping>
+	
+	<welcome-file-list>
+		<welcome-file>around.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>
