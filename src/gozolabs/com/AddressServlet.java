@@ -1,36 +1,23 @@
 package gozolabs.com;
 
 import gozolabs.com.dao.ADDRESSDao;
-import gozolabs.com.dao.CATEGORYDao;
-import gozolabs.com.entities.AroundImages;
-import gozolabs.com.entities.Category;
+import gozolabs.com.entities.Addresses;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import javax.jdo.PersistenceManager;
-import javax.jdo.Query;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.fileupload.FileItemStream;
-import org.apache.commons.fileupload.FileItemIterator;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.FileUploadBase.SizeLimitExceededException;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.io.IOUtils;
-
-import com.google.appengine.api.datastore.Blob;
-import com.google.appengine.repackaged.org.json.JSONArray;
+import com.google.appengine.repackaged.org.json.JSONException;
 import com.google.appengine.repackaged.org.json.JSONObject;
 
+@SuppressWarnings("serial")
 public class AddressServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res) {
@@ -42,49 +29,55 @@ public class AddressServlet extends HttpServlet {
 		    String block = checkNull(req.getParameter("block"));
 		    String postalcode = checkNull(req.getParameter("postalcode"));
 		    
-		    ADDRESSDao.INSTANCE.add(buildingname, streetname, unitno, block, postalcode);
+		    ADDRESSDao.INSTANCE.add(new Addresses(buildingname, unitno, block, streetname, postalcode));
 		    
-		    res.sendRedirect("/around.jsp");
+		    res.setHeader("Refresh", "2; /") ;
+		    res.getWriter().println("All okay!");
 		    
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void doGet(HttpServletRequest req, HttpServletResponse res) {
 		String name = checkNull(req.getParameter("name"));
-		List<Category> results;
-		CATEGORYDao.INSTANCE.getCategory(name);
+		List<Addresses> results;
 		
-	    if (name != null) {
-		    results = CATEGORYDao.INSTANCE.getCategory(name);
+	    if (!name.isEmpty()) {
+		    results = ADDRESSDao.INSTANCE.getAddressByBuilding(name);
 	    }
 	    else
 	    {
-		    results = CATEGORYDao.INSTANCE.listCategory();
+		    results = ADDRESSDao.INSTANCE.listAddresses();
 	    }
 	    
 	    if (!results.isEmpty()) {
-	    	Iterator<Category> itr = results.iterator();
-	    	List catList = new LinkedList();
+	    	Iterator<Addresses> itr = results.iterator();
+	    	List addList = new LinkedList();
 	    	while (itr.hasNext()) {
-		    	Map address = new HashMap();
-		    	Category cate = itr.next();
-	    		address.put("Id",cate.getId());
-	    		address.put("name", cate.getName());
-	    		catList.add(address);
+		    	Map item = new HashMap();
+		    	Addresses address = itr.next();
+		    	item.put("id",address.getId());
+		    	item.put("buildingname", address.getBuildingName());
+		    	item.put("block", address.getBlock());
+		    	item.put("streetname", address.getStreetName());
+		    	item.put("unitno", address.getUnitNo());
+		    	item.put("postalcode", address.getPostalCode());
+	    		addList.add(item);
 	    	}
+	    
+	    	System.out.println("List of addresses: " + addList);
+    	
+	    	res.setContentType("text/plain");
 
-	    	String[] jsonString = JSONObject.getNames(catList);
-	    	
-		    // serve the first image
-		    res.setContentType("application/json");
-
-		    try {
-			    PrintWriter out = res.getWriter();
-				out.print(jsonString);
-		        //res.sendRedirect("/aroundImages.jsp");
+	    	try {
+		    	JSONObject JAdd = new JSONObject().put("addresses", addList);
+		    	String myString = JAdd.toString();
+				res.getWriter().println(myString);
 			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (JSONException e) {
 				e.printStackTrace();
 			}
 	    } else
@@ -93,8 +86,6 @@ public class AddressServlet extends HttpServlet {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-	 
-
 	}
 	
 	private String checkNull(String s) {

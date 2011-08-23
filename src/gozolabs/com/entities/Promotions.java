@@ -1,6 +1,7 @@
 package gozolabs.com.entities;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
@@ -38,11 +39,18 @@ public class Promotions {
     private boolean isLive;
     
     @Persistent
-    private AroundImages image;
+    private List<AroundImages> images;
 
 
-    public Promotions(String newTitle) {
+    public Promotions(String newTitle, Category category, String description, Date startdate, Date enddate, boolean islive, List <AroundImages> images, Merchants merchant) {
         this.title = newTitle;
+        this.category = category;
+        this.description = description;
+        this.startDate = startdate;
+        this.endDate = enddate;
+        this.isLive = islive;
+        this.images = images;
+        this.merchant = merchant;
     }
 
     public Long getId() {
@@ -107,12 +115,12 @@ public class Promotions {
 		this.isLive = isLive;
 	}
 
-	public AroundImages getImage() {
-		return image;
+	public List<AroundImages> getImages() {
+		return images;
 	}
 
-	public void setImage(AroundImages image) {
-		this.image = image;
+	public void setImages(List<AroundImages> images) {
+		this.images = images;
 	}
 
 	public void setId(Long id) {

@@ -1,99 +1,90 @@
 package gozolabs.com.dao;
 
-import java.io.IOException;
 import java.util.List;
 
-import gozolabs.com.EMFService;
 import gozolabs.com.PMF;
-import gozolabs.com.entities.AroundImages;
 import gozolabs.com.entities.Category;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-
-import com.google.appengine.api.datastore.Blob;
-import com.google.appengine.api.datastore.Transaction;
 
 public enum CATEGORYDao {
 	INSTANCE;
 	
+	@SuppressWarnings("unchecked")
 	public List<Category> listCategory() {
-//		EntityManager em = EMFService.get().createEntityManager();
-//		// Read the existing entries
-//		Query q = em.createQuery("select m from gozolabs.com.entities.Category m");
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		List<Category> catList;
 	    System.out.println("List Category\n");
-		Query query = pm.newQuery(Category.class);
-		catList = (List<Category>)query.execute();
-		System.out.println("Out:" + query.toString());
-		return catList;
+
+		String query = "select from " + Category.class.getName();
+		return (List<Category>) pm.newQuery(query).execute();
 	}
-
-	public void add(String name) {
-		synchronized (this) {
-			PersistenceManager pm = PMF.get().getPersistenceManager();
-			try {
-
-				Category cate = new Category(name);
-				pm.makePersistent(cate);
-				//newTrans.commit();
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}   
-//			finally {
-//				if (newTrans.isActive())
-//				{
-//					newTrans.rollback();
-//				}
-//			}
-//			em.close();
-		}
-	}
-
+	
+	
+	@SuppressWarnings("unchecked")
 	public List<Category> getCategory(String inName) {
-		//EntityManager em = EMFService.get().createEntityManager();
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		List<Category> catList = null;
 	    System.out.println("Single Category, name: " + inName +"\n");
+	    
 		try {
 		    Query query = pm.newQuery(Category.class);
-		    System.out.println("name" + inName);
 		    if (!inName.isEmpty()) {
 		    	query.setFilter("name == inName");
 		    	query.declareParameters("String inName");
-		    	catList = (List<Category>)query.execute(inName);
-		    	System.out.println("Out:" + query.toString());
+		    	return (List<Category>)query.execute(inName);
 		    }
 	    }catch (Exception e1) {
 			e1.printStackTrace();
-		}   
-//			em.getTransaction().begin();
-//			Query q = em
-//					.createQuery("select t from gozolabs.com.entities.Category t where t.name = :name");
-//			q.setParameter("name", name);
-			//catList = q.getResultList();
-//		}
-//		finally {
-//			if (em.getTransaction().isActive())
-//			{
-//				em.getTransaction().rollback();
-//			}
-//		}
-//		em.close();
-		
-		return catList;
+		}
+		return null;   
 	}
+	
 
-	public void remove(long id) {
-		EntityManager em = EMFService.get().createEntityManager();
+	public void add(Category category) {
+		PersistenceManager pm = PMF.get().getPersistenceManager();
 		try {
-			Category cate = em.find(Category.class, id);
-			em.remove(cate);
+			pm.makePersistent(category);
 		} finally {
-			em.close();
+			pm.close();
+		}
+	}
+	
+
+	public void remove(Category category) {
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+
+		try {
+			pm.currentTransaction().begin();
+			category = pm.getObjectById(Category.class, category.getId());
+			pm.deletePersistent(category);
+
+			pm.currentTransaction().commit();
+		} catch (Exception ex) {
+			pm.currentTransaction().rollback();
+			throw new RuntimeException(ex);
+		} finally {
+			pm.close();
+		}
+	}
+	
+	
+	public void updateCategory(Category category) {
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		String name = category.getName();
+		Long id = category.getId();
+
+		try {
+			pm.currentTransaction().begin();
+			category = pm.getObjectById(Category.class, category.getId());
+			category.setName(name);
+			category.setId(id);
+			pm.makePersistent(category);
+			pm.currentTransaction().commit();
+		} catch (Exception ex) {
+			pm.currentTransaction().rollback();
+			throw new RuntimeException(ex);
+		} finally {
+			pm.close();
 		}
 	}
 }

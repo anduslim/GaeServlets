@@ -12,7 +12,7 @@ public class Category {
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
     private Long id;
 
-    @Persistent
+	@Persistent
     private String name;
 
 
@@ -33,5 +33,11 @@ public class Category {
     public void setName(String newName) {
         this.name = newName;
     }
+    
+    
+    public void setId(Long id) {
+		this.id = id;
+	}
+
 
 }

@@ -29,23 +29,31 @@ public class Merchants {
     
     @Persistent(mappedBy = "merchant")
     @Element(dependent = "true")
-    private List<Promotions> promotion;
+    private List<Promotions> promotions;
     
     @Persistent
-    private List<Addresses> address;
+    private List<Addresses> addresses;
     
     @Persistent
     private LoyaltyPromotions loyaltyPromo;
     
     @Persistent
-    private List<AroundImages> brandImage;
+    private List<AroundImages> brandImages;
     
     @Persistent
-    private List<AroundImages> image;
+    private List<AroundImages> images;
 
 
-    public Merchants(String newName) {
+    public Merchants(String newName, String contactno, String description, List <Addresses> addresses, List <AroundImages> brandimages, List <AroundImages> images, boolean hasloyalty, LoyaltyPromotions loyaltypromotion, List<Promotions> promotions) {
         this.name = newName;
+        this.contactNo = contactno;
+        this.description = description;
+        this.addresses = addresses;
+        this.brandImages = brandimages;
+        this.images = images;
+        this.hasLoyalty = hasloyalty;
+        this.loyaltyPromo = loyaltypromotion;
+        this.promotions = promotions;
     }
 
     public Long getId() {
@@ -86,28 +94,28 @@ public class Merchants {
 		this.description = description;
 	}
 
-	public List<Promotions> getPromotion() {
-		return promotion;
+	public List<Promotions> getPromotions() {
+		return promotions;
 	}
 
 	public void setPromotionList(List<Promotions> promoList) {
-		this.promotion = promoList;
+		this.promotions = promoList;
 	}
 	
 	public void addPromotion(Promotions promotion) {
-		this.promotion.add(promotion);
+		this.promotions.add(promotion);
 	}
 
-	public List <Addresses> getAddress() {
-		return address;
+	public List <Addresses> getAddresses() {
+		return addresses;
 	}
 
-	public void setAddress(List <Addresses> address) {
-		this.address = address;
+	public void setAddresses(List <Addresses> addresses) {
+		this.addresses = addresses;
 	}
 	
-	public void addAddress(Addresses address) {
-		this.address.add(address);
+	public void addAddress(Addresses addresses) {
+		this.addresses.add(addresses);
 	}
 
 	public LoyaltyPromotions getLoyaltyPromo() {
@@ -118,28 +126,28 @@ public class Merchants {
 		this.loyaltyPromo = loyaltyPromo;
 	}
 
-	public List<AroundImages> getBrandImage() {
-		return brandImage;
+	public List<AroundImages> getBrandImages() {
+		return brandImages;
 	}
 
 	public void addBrandImage(AroundImages brandImage) {
-		this.brandImage.add(brandImage);
+		this.brandImages.add(brandImage);
 	}
 	
-	public void setBrandImage(List<AroundImages> brandImage) {
-		this.brandImage = brandImage;
+	public void setBrandImage(List<AroundImages> brandImages) {
+		this.brandImages = brandImages;
 	}
 
-	public List<AroundImages> getImage() {
-		return image;
+	public List<AroundImages> getImages() {
+		return images;
 	}
 
 	public void addImage(AroundImages image) {
-		this.image.add(image);
+		this.images.add(image);
 	}
 	
-	public void setImage(List<AroundImages> image) {
-		this.image = image;
+	public void setImages(List<AroundImages> images) {
+		this.images = images;
 	}
 
 	public void setId(Long id) {

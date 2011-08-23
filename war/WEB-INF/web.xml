@@ -40,6 +40,33 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<url-pattern>/doaddress</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>LoyaltyPromotionServlet</servlet-name>
+		<servlet-class>gozolabs.com.LoyaltyPromotionServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LoyaltyPromotionServlet</servlet-name>
+		<url-pattern>/doloyaltypromotion</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>PromotionServlet</servlet-name>
+		<servlet-class>gozolabs.com.PromotionServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PromotionServlet</servlet-name>
+		<url-pattern>/dopromotion</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>MerchantServlet</servlet-name>
+		<servlet-class>gozolabs.com.MerchantServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MerchantServlet</servlet-name>
+		<url-pattern>/domerchant</url-pattern>
+	</servlet-mapping>
+	
 	<welcome-file-list>
 		<welcome-file>around.jsp</welcome-file>
 	</welcome-file-list>
