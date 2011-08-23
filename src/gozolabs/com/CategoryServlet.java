@@ -40,11 +40,6 @@ public class CategoryServlet extends HttpServlet {
 		    System.out.println("para name:" + name);
 		    CATEGORYDao.INSTANCE.add(name);
 
-//			Category cate = new Category(name);
-//		    // persist Category
-//		    PersistenceManager pm = PMF.get().getPersistenceManager();
-//		    pm.makePersistent(cate);
-//		    pm.close();
 		    res.getWriter().println("All okay!");
 		    //res.sendRedirect("/around.jsp");
 		    
