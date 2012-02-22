@@ -23,6 +23,24 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>RegisterServlet</servlet-name>
+		<servlet-class>gozolabs.com.RegisterServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RegisterServlet</servlet-name>
+		<url-pattern>/register</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>SendServlet</servlet-name>
+		<servlet-class>gozolabs.com.SendServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SendServlet</servlet-name>
+		<url-pattern>/send</url-pattern>
+	</servlet-mapping>
+		
+	<servlet>
 		<servlet-name>CategoryServlet</servlet-name>
 		<servlet-class>gozolabs.com.CategoryServlet</servlet-class>
 	</servlet>

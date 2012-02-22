@@ -5,5 +5,17 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/home/andus/workspace/Around/war/WEB-INF/lib/commons-fileupload-1.2.2.jar"/>
 	<classpathentry kind="lib" path="/home/andus/workspace/Around/war/WEB-INF/lib/commons-io-2.0.1.jar"/>
+	<classpathentry kind="lib" path="/home/andus/eclipse/plugins/com.google.gwt.eclipse.sdkbundle_2.3.0.r35v201105191506/gwt-2.3.0/gwt-user.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/home/andus/eclipse/plugins/com.google.gwt.eclipse.sdkbundle_2.3.0.r35v201105191506/gwt-2.3.0/doc/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/home/andus/eclipse/plugins/com.google.gwt.eclipse.sdkbundle_2.3.0.r35v201105191506/gwt-2.3.0/gwt-dev.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/home/andus/eclipse/plugins/com.google.gwt.eclipse.sdkbundle_2.3.0.r35v201105191506/gwt-2.3.0/doc/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/home/andus/eclipse/plugins/com.google.gwt.eclipse.sdkbundle_2.3.0.r35v201105191506/gwt-2.3.0/validation-api-1.0.0.GA.jar" sourcepath="/home/andus/eclipse/plugins/com.google.gwt.eclipse.sdkbundle_2.3.0.r35v201105191506/gwt-2.3.0/validation-api-1.0.0.GA-sources.jar"/>
+	<classpathentry kind="lib" path="/home/andus/eclipse/plugins/com.google.gwt.eclipse.sdkbundle_2.3.0.r35v201105191506/gwt-2.3.0/validation-api-1.0.0.GA-sources.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
